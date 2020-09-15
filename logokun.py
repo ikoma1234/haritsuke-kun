@@ -18,15 +18,15 @@ app.geometry('500x500')
 fYtp = [("", "*.png")]
 
 filename1 = ""
-fulename2=  ""
+filename2=  ""
 savefolderName = ""
 
 PADDING = 20
 
-FRAME_X = 0
-FRAME_Y = 55
-FRAME_WIDTH = 300
-FRAME_HEIGHT = 244
+FRAME_X = 6
+FRAME_Y = 58
+FRAME_WIDTH = 285
+FRAME_HEIGHT = 191
 
 
 def autocrop(image):
@@ -73,8 +73,9 @@ def chooseFolder():
     global savefolderName
     savefolderName = tkinter.filedialog.askdirectory(
         title="保存先フォルダを選択", mustexist=True, initialdir=os.getcwd())
-
-    savefolderName = savefolderName #+ os.sep
+    
+    savefolderName = savefolderName + os.sep
+    
     folderDone = tk.Label(frame_3, text=savefolderName)
     folderDone.grid(column=0, row=6, padx=5, pady=15)
 
@@ -118,12 +119,13 @@ def item2frame(item_image, bg):
 def save_img(img):
     img.load()  # required for png.split()
 
+    save_path = ""
+
     bg = Image.new("RGB", img.size, (255, 255, 255))
     bg.paste(img, mask=img.split()[3])  # 3 is the alpha channel
 
-    bg.show()
-
-    #bg.save(savefolderName, "JPEG", quality=95)
+    save_path = savefolderName + janTxt.get() + ".jpg"
+    bg.save(save_path, "JPEG", quality=95)
 
 
 def makeImage():
